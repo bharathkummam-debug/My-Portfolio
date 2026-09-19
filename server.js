@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const sqlite3 = require('sqlite3');
 const path = require('path');
 const crypto = require('crypto');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
@@ -14,30 +14,64 @@ app.use(cors());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.static(__dirname));
 
-// SQLite Database Setup
-const dbPath = path.resolve(process.env.DATABASE_PATH || './messages.db');
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error('Error connecting to SQLite database:', err.message);
-  } else {
-    console.log('Connected to SQLite database at:', dbPath);
-  }
+// Mongoose Schema & Model for MongoDB Atlas
+const messageSchema = new mongoose.Schema({
+  id: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  message: { type: String, required: true },
+  createdAt: { type: String, required: true },
+  status: { type: String, default: 'new' },
+  ip: { type: String }
 });
+const Message = mongoose.model('Message', messageSchema);
 
-// Initialize Messages Table
-db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS messages (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      message TEXT NOT NULL,
-      createdAt TEXT NOT NULL,
-      status TEXT DEFAULT 'new',
-      ip TEXT
-    )
-  `);
-});
+let isMongoConnected = false;
+const mongoUri = process.env.MONGODB_URI;
+
+if (mongoUri && !mongoUri.includes('YOUR_CLUSTER_ADDRESS')) {
+  mongoose.connect(mongoUri)
+    .then(() => {
+      isMongoConnected = true;
+      console.log('✅ Connected to MongoDB Atlas Cloud Database!');
+    })
+    .catch((err) => {
+      console.error('⚠️ MongoDB Atlas Connection Error:', err.message);
+    });
+}
+
+// Optional SQLite Database Setup
+let sqlite3 = null;
+let db = null;
+try {
+  sqlite3 = require('sqlite3');
+  const dbPath = path.resolve(process.env.DATABASE_PATH || './messages.db');
+  db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+      console.error('Error connecting to SQLite database:', err.message);
+    } else {
+      console.log('Connected to SQLite database at:', dbPath);
+    }
+  });
+
+  db.serialize(() => {
+    db.run(`
+      CREATE TABLE IF NOT EXISTS messages (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        message TEXT NOT NULL,
+        createdAt TEXT NOT NULL,
+        status TEXT DEFAULT 'new',
+        ip TEXT
+      )
+    `);
+  });
+} catch (sqliteErr) {
+  console.log('ℹ️ SQLite native binding omitted on Node v24. Using MongoDB Cloud / Memory storage.');
+}
+
+
 
 // Simple In-Memory Rate Limiting & Duplicate Prevention
 const rateLimitMap = new Map();
@@ -419,6 +453,78 @@ const generateEmailHtml = ({ name, email, message, createdAt, portfolioUrl }) =>
 };
 
 // ==========================================================================
+// DATABASE ABSTRACTION LAYER (MongoDB Atlas Cloud & SQLite Local Fallback)
+// ==========================================================================
+
+const inMemoryMessages = [];
+
+const saveMessageToDb = async (messageRecord) => {
+  if (isMongoConnected) {
+    const doc = new Message(messageRecord);
+    await doc.save();
+    return messageRecord;
+  }
+  if (db) {
+    return new Promise((resolve, reject) => {
+      const sql = `INSERT INTO messages (id, name, email, message, createdAt, status, ip) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+      db.run(sql, [messageRecord.id, messageRecord.name, messageRecord.email, messageRecord.message, messageRecord.createdAt, messageRecord.status, messageRecord.ip], function (err) {
+        if (err) reject(err);
+        else resolve(messageRecord);
+      });
+    });
+  }
+  inMemoryMessages.unshift(messageRecord);
+  return messageRecord;
+};
+
+const fetchMessagesFromDb = async (statusFilter) => {
+  if (isMongoConnected) {
+    const query = statusFilter ? { status: statusFilter } : {};
+    return await Message.find(query).sort({ createdAt: -1 }).lean();
+  }
+  if (db) {
+    return new Promise((resolve, reject) => {
+      let sql = `SELECT * FROM messages ORDER BY createdAt DESC`;
+      let params = [];
+      if (statusFilter) {
+        sql = `SELECT * FROM messages WHERE status = ? ORDER BY createdAt DESC`;
+        params.push(statusFilter);
+      }
+      db.all(sql, params, (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows);
+      });
+    });
+  }
+  if (statusFilter) {
+    return inMemoryMessages.filter(m => m.status === statusFilter);
+  }
+  return inMemoryMessages;
+};
+
+const updateMessageStatusInDb = async (id, status) => {
+  if (isMongoConnected) {
+    const updated = await Message.findOneAndUpdate({ id }, { status }, { new: true });
+    return updated !== null;
+  }
+  if (db) {
+    return new Promise((resolve, reject) => {
+      db.run(`UPDATE messages SET status = ? WHERE id = ?`, [status, id], function (err) {
+        if (err) reject(err);
+        else resolve(this.changes > 0);
+      });
+    });
+  }
+  const msg = inMemoryMessages.find(m => m.id === id);
+  if (msg) {
+    msg.status = status;
+    return true;
+  }
+  return false;
+};
+
+
+// ==========================================================================
 // API ENDPOINTS
 // ==========================================================================
 
@@ -481,13 +587,9 @@ app.post('/api/contact', async (req, res) => {
 
   const messageRecord = { id, name, email, message, createdAt, status, ip: clientIp };
 
-  // Save to SQLite Database
-  const sql = `INSERT INTO messages (id, name, email, message, createdAt, status, ip) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-  db.run(sql, [id, name, email, message, createdAt, status, clientIp], async function (err) {
-    if (err) {
-      console.error('Database Error:', err.message);
-      return res.status(500).json({ error: 'Failed to persist message to database. Please try again.' });
-    }
+  try {
+    // Save to Database (MongoDB Cloud or SQLite Local)
+    await saveMessageToDb(messageRecord);
 
     // Broadcast Realtime SSE Event
     broadcastNewMessage(messageRecord);
@@ -495,7 +597,7 @@ app.post('/api/contact', async (req, res) => {
     // Send Email Notification to Gmail
     const ownerEmail = process.env.OWNER_EMAIL || 'kummambharath@gmail.com';
 
-    // Resolve production portfolio URL (Fallback gracefully if PORTFOLIO_URL is localhost)
+    // Resolve production portfolio URL
     let portfolioUrl = process.env.PORTFOLIO_URL;
     if (!portfolioUrl || portfolioUrl.includes('localhost') || portfolioUrl.includes('127.0.0.1')) {
       portfolioUrl = process.env.PRODUCTION_PORTFOLIO_URL || 'https://bharath-portfolio.com';
@@ -518,7 +620,6 @@ app.post('/api/contact', async (req, res) => {
         console.log(`[Email Delivered] Notification sent to ${ownerEmail} for message ${id}`);
       } catch (mailErr) {
         console.error('[Email Warning] Failed to send email via SMTP:', mailErr.message);
-        // Message is safely stored in DB
       }
     } else {
       console.log(`[Local Simulation Mode] SMTP credentials not set in .env. Message ${id} saved to DB successfully.`);
@@ -529,30 +630,26 @@ app.post('/api/contact', async (req, res) => {
       message: 'Message Sent ✓',
       data: { id, createdAt }
     });
-  });
+
+  } catch (err) {
+    console.error('Database Error:', err.message);
+    return res.status(500).json({ error: 'Failed to persist message to database. Please try again.' });
+  }
 });
 
 // 2. GET All Messages (Admin Endpoint)
-app.get('/api/messages', (req, res) => {
+app.get('/api/messages', async (req, res) => {
   const { status } = req.query;
-  let sql = `SELECT * FROM messages ORDER BY createdAt DESC`;
-  let params = [];
-
-  if (status) {
-    sql = `SELECT * FROM messages WHERE status = ? ORDER BY createdAt DESC`;
-    params.push(status);
+  try {
+    const messages = await fetchMessagesFromDb(status);
+    res.json({ success: true, count: messages.length, messages });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch messages' });
   }
-
-  db.all(sql, params, (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to fetch messages' });
-    }
-    res.json({ success: true, count: rows.length, messages: rows });
-  });
 });
 
 // 3. PATCH Update Message Status (Admin Endpoint)
-app.patch('/api/messages/:id', (req, res) => {
+app.patch('/api/messages/:id', async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
@@ -560,16 +657,17 @@ app.patch('/api/messages/:id', (req, res) => {
     return res.status(400).json({ error: 'Invalid status value. Must be new, read, or replied.' });
   }
 
-  db.run(`UPDATE messages SET status = ? WHERE id = ?`, [status, id], function (err) {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to update message status' });
-    }
-    if (this.changes === 0) {
+  try {
+    const updated = await updateMessageStatusInDb(id, status);
+    if (!updated) {
       return res.status(404).json({ error: 'Message not found' });
     }
     res.json({ success: true, id, status });
-  });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update message status' });
+  }
 });
+
 
 // 4. SSE Real-Time Stream Endpoint for Admin Dashboard
 app.get('/api/messages/stream', (req, res) => {
@@ -589,10 +687,10 @@ app.get('/api/messages/stream', (req, res) => {
 // Start Express Server
 app.listen(PORT, () => {
   console.log(`==================================================`);
-  console.log(`Portfolio Messaging Server running on port ${PORT}`);
+  console.log(`Portfolio Server running at: http://localhost:${PORT}`);
   console.log(`API Endpoint: http://localhost:${PORT}/api/contact`);
-  console.log(`Database: ${dbPath}`);
   console.log(`==================================================`);
 });
+
 
 app.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'index.html')); });
