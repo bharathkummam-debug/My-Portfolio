@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bharath — UI/UX Designer & Web Developer</title>
+  <meta name="description"
+    content="Portfolio of Bharath, a UI/UX Designer crafting modern, user-friendly websites and apps with clean design and meaningful experiences.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ==========================================================================
+       HEADER / NAVBAR
+       ========================================================================== -->
+  <header class="header" id="header">
+    <div class="container header-container">
+      <a href="#" class="logo">BHARATH<span>.</span></a>
+
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a href="#contact" class="btn-hire">
+        Hire Me
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- Left Hero Text Content -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            HELLO THERE <span class="wave-emoji">👋</span>
+          </div>
+
+          <h1 class="hero-title">
+            Hi, I’m Bharath,<br>
+            <span id="heroTypewriter"></span><span class="hero-cursor"></span>
+          </h1>
+
+          <p class="hero-description">
+            I build modern, user-friendly websites and apps with clean design and meaningful experiences.
+          </p>
+
+          <!-- Hero Action Buttons -->
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">
+              View My Work
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+
+            <a href="#contact" class="btn-secondary">Contact Me</a>
+
+            <a href="assets/Bharath_Kumar_Kummam_Resume.pdf" download="Bharath_Kumar_Kummam_Resume.pdf" class="btn-cv"
+              id="downloadCvBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Download CV
+            </a>
+          </div>
+
+          <!-- Social Icon Row -->
+          <div class="social-links">
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/bharath-kummam-113a1834b/" target="_blank" rel="noopener noreferrer"
+              class="social-icon" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/mr_bharath__284/" target="_blank" rel="noopener noreferrer"
+              class="social-icon" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+
+            <!-- Behance -->
+            <a href="https://www.behance.net/bharathkummam" target="_blank" rel="noopener noreferrer"
+              class="social-icon" aria-label="Behance">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-4.726 3-3.101 0-5-2.262-5-5.5 0-3.193 1.832-5.5 4.887-5.5 3.056 0 4.607 2.199 4.607 5.092 0 .428-.041.879-.068 1.058h-7.391c.145 1.545 1.171 2.5 2.82 2.5 1.258 0 2.137-.581 2.477-1.65h2.395zm-4.726-5.85c-1.353 0-2.146.852-2.348 2.05h4.633c-.114-1.218-1.026-2.05-2.285-2.05zm-10.855 8.85h-8.145v-14h7.939c2.72 0 4.416 1.272 4.416 3.42 0 1.516-.848 2.557-2.043 3.031 1.637.457 2.688 1.676 2.688 3.549 0 2.463-1.921 4-4.855 4zm-5.145-8.5h2.72c1.239 0 2.031-.555 2.031-1.604 0-1.033-.792-1.546-2.031-1.546h-2.72v3.15zm0 6h2.89c1.378 0 2.256-.639 2.256-1.787 0-1.162-.878-1.713-2.256-1.713h-2.89v3.55z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Hero Monitor Display Showcase -->
+        <div class="hero-visual">
+          <div class="monitor-container">
+            <div class="monitor-frame">
+              <!-- Top Bezel Controls & Status Bar -->
+              <div class="monitor-header">
+                <div class="monitor-controls">
+                  <span class="control-dot dot-red"></span>
+                  <span class="control-dot dot-yellow"></span>
+                  <span class="control-dot dot-green"></span>
+                </div>
+                <div class="monitor-status">
+                  <!-- Wifi Icon SVG -->
+                  <svg class="status-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12.55a11 11 0 0 1 14 0"></path>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                    <circle cx="12" cy="20" r="1.5" fill="currentColor"></circle>
+                  </svg>
+                  <!-- Battery Icon SVG -->
+                  <svg class="status-icon" width="16" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="16" height="10" rx="2" ry="2"></rect>
+                    <path d="M22 11v2" stroke-width="2.5"></path>
+                    <rect x="4" y="9" width="11" height="6" rx="1" fill="currentColor"></rect>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Monitor Screen -->
+              <div class="monitor-screen">
+                <video class="monitor-video" autoplay playsinline id="heroVideo" poster="assets/naruto_avatar.jpg">
+                  <source src="assets/Video Project 17.mp4" type="video/mp4">
+                  <img src="assets/naruto_avatar.jpg" alt="Bharath Naruto Avatar Display">
+                </video>
+
+                <!-- Sound Control Button / Muted Pill -->
+                <button class="sound-toggle-btn" id="soundToggleBtn" title="Toggle Mute / Sound">
+                  <span id="soundIcon" class="mic-icon-wrapper">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                      <line x1="12" y1="19" x2="12" y2="23" />
+                      <line x1="8" y1="23" x2="16" y2="23" />
+                      <line x1="2" y1="2" x2="22" y2="22" stroke="#EF4444" stroke-width="2.5" />
+                    </svg>
+                  </span>
+                  <span id="soundLabel">Muted</span>
+                </button>
+              </div>
+
+              <!-- Bottom Bezel Sensor & Indicator Bar -->
+              <div class="monitor-bottom-bezel">
+                <div class="sensor-bar"></div>
+                <div class="led-dots">
+                  <span class="led-dot"></span>
+                  <span class="led-dot active"></span>
+                  <span class="led-dot"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Monitor Stand Dual Legs -->
+            <div class="monitor-stand-container">
+              <div class="monitor-leg leg-left"></div>
+              <div class="monitor-leg leg-right"></div>
+              <div class="monitor-floor-shadow"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ABOUT SECTION (ID BADGE & CALLIGRAPHY DESIGN)
+       ========================================================================== -->
+  <section class="section about-section-new" id="about">
+    <div class="container about-container-new">
+
+      <!-- Left Visual: Modern Landscape Designer ID Card -->
+      <div class="id-card-wrapper">
+        <div class="id-card-landscape">
+          <!-- Card Left Side: Anime Portrait -->
+          <div class="card-left-portrait">
+            <img src="assets/72d95465-de58-4078-a007-8420fd90dc78.png" alt="Bharath UI/UX Designer Portrait"
+              class="portrait-img">
+            <div class="portrait-chip">UI/UX</div>
+          </div>
+
+          <!-- Card Right Side: Personal Info & Details -->
+          <div class="card-right-info">
+            <!-- Top Status Pill -->
+            <div class="card-status-pill">
+              <span class="status-pulse-dot"></span>
+              Available for work
+            </div>
+
+            <!-- Name & Title -->
+            <div class="card-identity">
+              <h3 class="card-name">BHARATH<span>.</span></h3>
+              <p class="card-role">UI/UX DESIGNER</p>
+            </div>
+
+            <!-- Specialization Tags -->
+            <div class="card-specs">
+              <span class="spec-tag">UX RESEARCH</span>
+              <span class="spec-tag">UI DESIGN</span>
+              <span class="spec-tag">PRODUCT DESIGN</span>
+            </div>
+
+            <!-- Card Bottom Bar / Serial -->
+            <div class="card-footer-meta">
+              <span class="meta-code">ID: BHR-UX-2026</span>
+              <span class="meta-blue-bar"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Content Area -->
+      <div class="about-content-new">
+        <!-- Top Decorative Sparkle & Calligraphy -->
+        <div class="top-sparkle">✦</div>
+
+        <!-- Heading with Burst & Underline -->
+        <div class="about-heading-wrapper">
+          <svg class="burst-icon" width="32" height="24" viewBox="0 0 40 30" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round">
+            <line x1="8" y1="22" x2="2" y2="12" />
+            <line x1="20" y1="20" x2="20" y2="4" />
+            <line x1="32" y1="22" x2="38" y2="12" />
+          </svg>
+          <h2 class="about-title">Hello!</h2>
+          <svg class="title-underline" width="130" height="10" viewBox="0 0 140 12" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round">
+            <path d="M 5 6 Q 70 12, 135 4" />
+          </svg>
+        </div>
+
+        <!-- About Paragraphs -->
+        <p class="about-lead-text">
+          I’m <strong>Bharath</strong>, a <span class="highlight-accent">UI/UX Designer</span> who believes in simple
+          ideas, meaningful designs, and real impact.
+        </p>
+
+        <p class="about-body-text">
+          I design digital experiences that are user-focused, visually appealing, and easy to use. From research to
+          final UI, I love turning ideas into products that people enjoy.
+        </p>
+
+        <p class="about-body-text">
+          When I'm not designing, you'll probably find me exploring new design trends, learning something new, or
+          sketching random ideas.
+        </p>
+
+        <!-- CTA & Handwritten Sign-off -->
+        <div class="about-cta-row">
+          <a href="#projects" class="btn-explore-work">
+            Explore My Work
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+
+          <div class="cta-handwriting">
+            <span>Let's create something amazing!</span>
+            <svg class="hand-underline-long" width="170" height="10" viewBox="0 0 180 12" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M 5 6 Q 90 12, 175 4" />
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SKILLS SECTION
+       ========================================================================== -->
+  <section class="section" id="skills">
+    <div class="container">
+      <!-- Section Header matching reference image -->
+      <div class="section-header">
+        <span class="section-subtitle section-subtitle-dash">MY EXPERTISE</span>
+        <h2 class="section-title">Design Tools</h2>
+        <p class="section-desc">Tools I use to turn ideas into meaningful designs</p>
+      </div>
+
+      <!-- 2-Column Design Tools Cards Grid matching reference design -->
+      <div class="design-tools-grid">
+        <!-- Tool 1: Figma -->
+        <div class="design-tool-card">
+          <div class="tool-icon-wrapper bg-figma">
+            <svg width="34" height="51" viewBox="0 0 38 57" fill="none">
+              <path
+                d="M19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5C38 33.7467 33.7467 38 28.5 38H19V28.5Z"
+                fill="#1ABCFE" />
+              <path
+                d="M0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5Z"
+                fill="#0ACF83" />
+              <path d="M19 0V19H28.5C33.7467 19 38 14.7467 38 9.5C38 4.25329 33.7467 0 28.5 0H19Z" fill="#FF7262" />
+              <path d="M0 9.5C0 14.7467 4.25329 19 9.5 19H19V0H9.5C4.25329 0 0 4.25329 0 9.5Z" fill="#F24E1E" />
+              <path d="M0 28.5C0 33.7467 4.25329 38 9.5 38H19V19H9.5C4.25329 19 0 23.2533 0 28.5Z" fill="#A259FF" />
+            </svg>
+          </div>
+          <div class="tool-card-content">
+            <h3 class="tool-name">Figma</h3>
+            <span class="tool-subtitle">Interface Design Tool</span>
+            <p class="tool-description">I design, prototype, and collaborate in real-time to create user-centered
+              digital experiences.</p>
+            <div class="tool-card-tags">
+              <span class="tool-tag tag-pink">UI/UX Design</span>
+              <span class="tool-tag tag-pink">Prototyping</span>
+              <span class="tool-tag tag-pink">Collaboration</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tool 2: Adobe XD -->
+        <div class="design-tool-card">
+          <div class="tool-icon-wrapper bg-xd">
+            <svg width="42" height="42" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="10" fill="#470137" />
+              <text x="7" y="27" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="20"
+                fill="#FF61F6">Xd</text>
+            </svg>
+          </div>
+          <div class="tool-card-content">
+            <h3 class="tool-name">Adobe XD</h3>
+            <span class="tool-subtitle">Basic Prototype Tool</span>
+            <p class="tool-description">I create interactive prototypes and design user flows for seamless experiences.
+            </p>
+            <div class="tool-card-tags">
+              <span class="tool-tag tag-purple">Wireframing</span>
+              <span class="tool-tag tag-purple">Prototyping</span>
+              <span class="tool-tag tag-purple">User Flows</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tool 3: Canva -->
+        <div class="design-tool-card">
+          <div class="tool-icon-wrapper bg-canva">
+            <svg width="42" height="42" viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="20" fill="url(#canvaGrad)" />
+              <defs>
+                <linearGradient id="canvaGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#00C4CC" />
+                  <stop offset="1" stop-color="#7D2AE8" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M12.5 24.5C14.5 27 18.5 27 21.5 24C24 21.5 24 16 20.5 13.5C17.5 11.5 13.5 13.5 13.5 17C13.5 21.5 24.5 22.5 27.5 18"
+                stroke="white" stroke-width="3" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="tool-card-content">
+            <h3 class="tool-name">Canva</h3>
+            <span class="tool-subtitle">Graphic Design Tool</span>
+            <p class="tool-description">I create engaging graphics, social media content, and presentations with ease.
+            </p>
+            <div class="tool-card-tags">
+              <span class="tool-tag tag-blue">Social Media</span>
+              <span class="tool-tag tag-blue">Presentations</span>
+              <span class="tool-tag tag-blue">Marketing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tool 4: Adobe Photoshop -->
+        <div class="design-tool-card">
+          <div class="tool-icon-wrapper bg-photoshop">
+            <svg width="42" height="42" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="10" fill="#001E36" />
+              <text x="8" y="27" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="20"
+                fill="#31A8FF">Ps</text>
+            </svg>
+          </div>
+          <div class="tool-card-content">
+            <h3 class="tool-name">Adobe Photoshop</h3>
+            <span class="tool-subtitle">Graphic Design Tool</span>
+            <p class="tool-description">I edit, retouch, and create stunning visuals to bring ideas to life.</p>
+            <div class="tool-card-tags">
+              <span class="tool-tag tag-cyan">Photo Editing</span>
+              <span class="tool-tag tag-cyan">Digital Art</span>
+              <span class="tool-tag tag-cyan">Compositing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PROJECTS SECTION
+       ========================================================================== -->
+  <!-- ==========================================================================
+       PROJECTS SECTION (FEATURED WORK - EXACT REFERENCE DESIGN)
+       ========================================================================== -->
+  <section class="section section-projects" id="projects">
+    <div class="container container-wide">
+
+      <!-- Top Header Row -->
+      <div class="fw-header-row">
+        <div class="fw-header-left">
+          <div class="fw-subtitle-badge">
+            <span class="fw-badge-line"></span>
+            <span class="fw-subtitle-text">RECENT PORTFOLIO</span>
+          </div>
+          <h2 class="fw-section-title">
+            Featured <span class="fw-title-gradient">Work</span>
+          </h2>
+          <p class="fw-section-desc">
+            A curated collection of design and development projects that transform ideas into real-world solutions.
+          </p>
+        </div>
+
+        <!-- Handwritten Doodle Accent -->
+        <!-- <div class="fw-doodle-accent" aria-hidden="true">
+          <span class="fw-doodle-text">Design<br>Develop<br>Deliver</span>
+          <svg class="fw-doodle-arrow" width="70" height="40" viewBox="0 0 70 40" fill="none">
+            <path d="M 5 12 Q 35 32 60 18" stroke="#6366F1" stroke-width="2" stroke-linecap="round" fill="none" stroke-dasharray="3 3"/>
+            <path d="M 50 15 L 62 18 L 56 26" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div> -->
+
+        <div class="fw-header-right">
+          <div class="fw-selected-work-label">
+            <span class="fw-label-line"></span>
+            <span>Selected Work</span>
+          </div>
+
+          <!-- Category Filter Buttons -->
+          <div class="projects-filter fw-filter-pills">
+            <button class="filter-btn active" data-filter="all">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              All Projects
+            </button>
+            <button class="filter-btn" data-filter="uiux">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              UI/UX Design
+            </button>
+            <button class="filter-btn" data-filter="web">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                </path>
+              </svg>
+              Web Design
+            </button>
+            <button class="filter-btn" data-filter="mobile">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+              Mobile Apps
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Featured Cards Grid -->
+      <div class="projects-grid fw-cards-grid">
+
+        <!-- CARD 01: VR Headset Next-Gen Experience (Dark Theme) -->
+        <div class="project-card fw-card fw-card-dark" data-category="uiux web">
+          <div class="fw-card-top-bar">
+            <span class="fw-card-num">01</span>
+            <span class="fw-card-top-tag">Immersive Experiences</span>
+          </div>
+
+          <div class="fw-card-visual">
+            <img src="assets/project_vr_headset.jpg" alt="VR Headset Next-Gen Experience Mockup" loading="lazy">
+          </div>
+
+          <div class="fw-card-content">
+            <span class="fw-card-category cat-uiux">UI/UX DESIGN</span>
+            <h3 class="fw-card-title">VR Headset<br>Next-Gen Experience</h3>
+            <p class="fw-card-desc">
+              Immersive product landing page design showcasing hardware specs, interactive 3D views, and a seamless VR
+              app store integration.
+            </p>
+
+            <div class="fw-card-tags">
+              <span class="fw-tag">UI/UX Design</span>
+              <span class="fw-tag">3D Visuals</span>
+              <span class="fw-tag">Web Experience</span>
+            </div>
+
+            <div class="fw-card-action-row">
+              <a href="#contact" class="fw-action-btn fw-action-btn-white" aria-label="View VR Headset Case Study">
+                <span class="fw-arrow-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+                <span class="fw-btn-text">View Case Study</span>
+              </a>
+              <span class="fw-card-tagline">Explore the Next Reality</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 02: Apex Vault Financial Analytics (Ice Blue Theme) -->
+        <div class="project-card fw-card fw-card-blue" data-category="web uiux">
+          <div class="fw-card-top-bar">
+            <span class="fw-card-num">02</span>
+            <span class="fw-card-top-tag">Data Driven</span>
+          </div>
+
+          <div class="fw-card-visual">
+            <img src="assets/project_apex_vault.jpg" alt="Apex Vault Financial Analytics Mockup" loading="lazy">
+          </div>
+
+          <div class="fw-card-content">
+            <span class="fw-card-category cat-web">WEB DESIGN</span>
+            <h3 class="fw-card-title">Apex Vault<br>Financial Analytics</h3>
+            <p class="fw-card-desc">
+              Sleek, dark-mode dashboard interface for tracking crypto assets, stock portfolios, and real-time market
+              trends.
+            </p>
+
+            <div class="fw-card-tags">
+              <span class="fw-tag">Dashboard UI</span>
+              <span class="fw-tag">Data Visualization</span>
+              <span class="fw-tag">FinTech</span>
+            </div>
+
+            <div class="fw-card-action-row">
+              <a href="#contact" class="fw-action-btn fw-action-btn-dark" aria-label="View Apex Vault Case Study">
+                <span class="fw-arrow-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+                <span class="fw-btn-text">View Case Study</span>
+              </a>
+              <span class="fw-card-tagline">Smarter Financial Decisions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 03: Luxe Store Mobile App (Warm Peach Theme) -->
+        <div class="project-card fw-card fw-card-peach" data-category="mobile uiux">
+          <div class="fw-card-top-bar">
+            <span class="fw-card-num">03</span>
+            <span class="fw-card-top-tag">Shopping Redefined</span>
+          </div>
+
+          <div class="fw-card-visual">
+            <img src="assets/project_luxe_store.jpg" alt="Luxe Store Mobile App Mockup" loading="lazy">
+          </div>
+
+          <div class="fw-card-content">
+            <span class="fw-card-category cat-mobile">MOBILE APP</span>
+            <h3 class="fw-card-title">Luxe Store<br>Mobile App</h3>
+            <p class="fw-card-desc">
+              Intuitive shopping experience with one-tap checkout, personalized recommendations, and smooth
+              micro-animations.
+            </p>
+
+            <div class="fw-card-tags">
+              <span class="fw-tag">Mobile UI</span>
+              <span class="fw-tag">E-Commerce</span>
+              <span class="fw-tag">Micro-Interactions</span>
+            </div>
+
+            <div class="fw-card-action-row">
+              <a href="#contact" class="fw-action-btn fw-action-btn-dark" aria-label="View Luxe Store Case Study">
+                <span class="fw-arrow-circle">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+                <span class="fw-btn-text">View Case Study</span>
+              </a>
+              <span class="fw-card-tagline">Shop A Smarter Way</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Footer Bar of Featured Work -->
+      <div class="fw-footer-bar">
+        <div class="fw-footer-left">
+          <span class="fw-footer-text">Let's Build Something Amazing</span>
+          <span class="fw-footer-line"></span>
+        </div>
+
+        <div class="fw-footer-slider-nav">
+          <button class="fw-nav-arrow fw-nav-prev" id="projectsPrevBtn" aria-label="Previous Projects">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <div class="fw-nav-dots" id="projectsDots">
+            <span class="fw-dot active"></span>
+            <span class="fw-dot"></span>
+            <span class="fw-dot"></span>
+            <span class="fw-dot"></span>
+          </div>
+          <button class="fw-nav-arrow fw-nav-next" id="projectsNextBtn" aria-label="Next Projects">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div class="fw-footer-right">
+          <a href="#contact" class="fw-cta-btn">
+            View All Projects
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CONTACT SECTION
+       ========================================================================== -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">GET IN TOUCH</span>
+        <h2 class="section-title">Let’s Build Something Amazing</h2>
+        <p class="section-desc">Have a project in mind or want to collaborate? Feel free to reach out.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact Info Card -->
+        <div class="contact-info-card">
+          <h3>Contact Information</h3>
+          <p>I’m currently available for freelance projects, full-time design roles, and creative consultations.</p>
+
+          <div class="contact-detail">
+            <div class="detail-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="detail-text">
+              <label>Email Me</label>
+              <span>kummambharath@gmail.com</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="detail-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="detail-text">
+              <label>Location</label>
+              <span>Hyderabad, India</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="detail-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="detail-text">
+              <label>Work Hours</label>
+              <span>Mon – Fri, 9:00 AM – 6:00 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">
+            Send Message
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <div class="toast-icon">✓</div>
+    <span>Thank you! Your message has been sent successfully.</span>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-copy">
+        &copy; 2026 Bharath. Designed & Built with Precision.
+      </div>
+
+      <a href="#home" class="back-to-top" aria-label="Back to Top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+
+</html>

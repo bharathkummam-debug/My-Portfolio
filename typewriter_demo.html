@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI/UX Designer — Portfolio Hero Animation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base Layout */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Container for strict position stability */
+    .hero-text-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 20px 40px;
+    }
+
+    /* Typography */
+    .typewriter-text {
+      font-size: clamp(2.75rem, 7.5vw, 5.5rem);
+      font-weight: 800;
+      color: #000000;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      white-space: nowrap;
+      display: inline-block;
+      min-height: 1.1em;
+    }
+
+    /* Thin Blinking Cursor */
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.9em;
+      background-color: #000000;
+      margin-left: 6px;
+      vertical-align: middle;
+      border-radius: 1px;
+      animation: cursorBlink 0.85s infinite steps(2, start);
+    }
+
+    /* Cursor Blink Keyframes */
+    @keyframes cursorBlink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Minimal Hero Text Component -->
+  <div class="hero-text-container">
+    <span class="typewriter-text" id="typewriter"></span><span class="cursor"></span>
+  </div>
+
+  <script>
+    (function () {
+      const textToType = "UI/UX Designer";
+      const typewriterElement = document.getElementById('typewriter');
+      
+      const typeSpeed = 80;    // ~80ms per character typing
+      const deleteSpeed = 45;  // 45ms per character deleting
+      const pauseEnd = 2200;   // 2.2s pause when full text is typed
+      const pauseStart = 600;  // 600ms pause after deleting before typing again
+
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeLoop() {
+        if (!isDeleting) {
+          // Typing phase
+          typewriterElement.textContent = textToType.substring(0, charIndex + 1);
+          charIndex++;
+
+          if (charIndex === textToType.length) {
+            // Finished typing full phrase -> pause briefly
+            isDeleting = true;
+            setTimeout(typeLoop, pauseEnd);
+            return;
+          }
+          setTimeout(typeLoop, typeSpeed);
+
+        } else {
+          // Deleting phase
+          typewriterElement.textContent = textToType.substring(0, charIndex - 1);
+          charIndex--;
+
+          if (charIndex === 0) {
+            // Finished deleting -> pause briefly before typing again
+            isDeleting = false;
+            setTimeout(typeLoop, pauseStart);
+            return;
+          }
+          setTimeout(typeLoop, deleteSpeed);
+        }
+      }
+
+      // Start typing loop smoothly on DOM load
+      setTimeout(typeLoop, 400);
+    })();
+  </script>
+
+</body>
+</html>
