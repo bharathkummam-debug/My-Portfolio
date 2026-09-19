@@ -2587,3 +2587,94 @@ textarea.form-control {
     text-align: center;
   }
 }
+
+/* ==========================================================================
+   COMPLETE MULTI-DEVICE RESPONSIVE SYSTEM
+   (Supports Mobile 320px+, Tablets 768px+, Laptops 1024px+, Desktops 1440px+)
+   ========================================================================== */
+
+/* Prevent Horizontal Page Overflow across all devices */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Compact Smartphones (max-width: 480px) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 30px !important;
+    line-height: 1.25 !important;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .btn-primary, .btn-secondary, .btn-cv {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .whatsapp-title {
+    font-size: 30px !important;
+    line-height: 1.2 !important;
+  }
+
+  .whatsapp-subtitle {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+
+  .whatsapp-desc {
+    font-size: 14px;
+    padding: 0 10px;
+    margin-bottom: 28px;
+  }
+
+  .whatsapp-action-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
+    justify-content: center;
+  }
+
+  .whatsapp-badge-container {
+    transform: scale(0.85);
+    margin-bottom: 20px;
+  }
+
+  .design-tool-card {
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .tool-card-content .tool-name {
+    font-size: 18px;
+  }
+
+  .tool-card-content .tool-description {
+    font-size: 13px;
+  }
+}
+
+/* Extra Small Phones (max-width: 360px - e.g. iPhone SE) */
+@media (max-width: 360px) {
+  .container, .container-wide {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .hero-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  .whatsapp-title {
+    font-size: 26px !important;
+  }
+}
+
