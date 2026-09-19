@@ -3,7 +3,6 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 const path = require('path');
 const crypto = require('crypto');
-const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
@@ -14,62 +13,6 @@ app.use(cors());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.static(__dirname));
 
-// Mongoose Schema & Model for MongoDB Atlas
-const messageSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  message: { type: String, required: true },
-  createdAt: { type: String, required: true },
-  status: { type: String, default: 'new' },
-  ip: { type: String }
-});
-const Message = mongoose.model('Message', messageSchema);
-
-let isMongoConnected = false;
-const mongoUri = process.env.MONGODB_URI;
-
-if (mongoUri && !mongoUri.includes('YOUR_CLUSTER_ADDRESS')) {
-  mongoose.connect(mongoUri)
-    .then(() => {
-      isMongoConnected = true;
-      console.log('✅ Connected to MongoDB Atlas Cloud Database!');
-    })
-    .catch((err) => {
-      console.error('⚠️ MongoDB Atlas Connection Error:', err.message);
-    });
-}
-
-// Optional SQLite Database Setup
-let sqlite3 = null;
-let db = null;
-try {
-  sqlite3 = require('sqlite3');
-  const dbPath = path.resolve(process.env.DATABASE_PATH || './messages.db');
-  db = new sqlite3.Database(dbPath, (err) => {
-    if (err) {
-      console.error('Error connecting to SQLite database:', err.message);
-    } else {
-      console.log('Connected to SQLite database at:', dbPath);
-    }
-  });
-
-  db.serialize(() => {
-    db.run(`
-      CREATE TABLE IF NOT EXISTS messages (
-        id TEXT PRIMARY KEY,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        message TEXT NOT NULL,
-        createdAt TEXT NOT NULL,
-        status TEXT DEFAULT 'new',
-        ip TEXT
-      )
-    `);
-  });
-} catch (sqliteErr) {
-  console.log('ℹ️ SQLite native binding omitted on Node v24. Using MongoDB Cloud / Memory storage.');
-}
 
 
 
@@ -453,49 +396,17 @@ const generateEmailHtml = ({ name, email, message, createdAt, portfolioUrl }) =>
 };
 
 // ==========================================================================
-// DATABASE ABSTRACTION LAYER (MongoDB Atlas Cloud & SQLite Local Fallback)
+// IN-MEMORY MESSAGING STORE
 // ==========================================================================
 
 const inMemoryMessages = [];
 
 const saveMessageToDb = async (messageRecord) => {
-  if (isMongoConnected) {
-    const doc = new Message(messageRecord);
-    await doc.save();
-    return messageRecord;
-  }
-  if (db) {
-    return new Promise((resolve, reject) => {
-      const sql = `INSERT INTO messages (id, name, email, message, createdAt, status, ip) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-      db.run(sql, [messageRecord.id, messageRecord.name, messageRecord.email, messageRecord.message, messageRecord.createdAt, messageRecord.status, messageRecord.ip], function (err) {
-        if (err) reject(err);
-        else resolve(messageRecord);
-      });
-    });
-  }
   inMemoryMessages.unshift(messageRecord);
   return messageRecord;
 };
 
 const fetchMessagesFromDb = async (statusFilter) => {
-  if (isMongoConnected) {
-    const query = statusFilter ? { status: statusFilter } : {};
-    return await Message.find(query).sort({ createdAt: -1 }).lean();
-  }
-  if (db) {
-    return new Promise((resolve, reject) => {
-      let sql = `SELECT * FROM messages ORDER BY createdAt DESC`;
-      let params = [];
-      if (statusFilter) {
-        sql = `SELECT * FROM messages WHERE status = ? ORDER BY createdAt DESC`;
-        params.push(statusFilter);
-      }
-      db.all(sql, params, (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows);
-      });
-    });
-  }
   if (statusFilter) {
     return inMemoryMessages.filter(m => m.status === statusFilter);
   }
@@ -503,18 +414,6 @@ const fetchMessagesFromDb = async (statusFilter) => {
 };
 
 const updateMessageStatusInDb = async (id, status) => {
-  if (isMongoConnected) {
-    const updated = await Message.findOneAndUpdate({ id }, { status }, { new: true });
-    return updated !== null;
-  }
-  if (db) {
-    return new Promise((resolve, reject) => {
-      db.run(`UPDATE messages SET status = ? WHERE id = ?`, [status, id], function (err) {
-        if (err) reject(err);
-        else resolve(this.changes > 0);
-      });
-    });
-  }
   const msg = inMemoryMessages.find(m => m.id === id);
   if (msg) {
     msg.status = status;
@@ -522,6 +421,7 @@ const updateMessageStatusInDb = async (id, status) => {
   }
   return false;
 };
+
 
 
 // ==========================================================================
