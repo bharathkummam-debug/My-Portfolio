@@ -730,10 +730,13 @@ button {
   transform-style: preserve-3d;
   display: flex;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
 }
 
 .id-card-landscape {
-  width: 520px;
+  width: 100%;
+  max-width: 520px;
   background: #FFFFFF;
   border: 1.5px solid #18181b;
   border-radius: 20px;
@@ -741,6 +744,7 @@ button {
   display: grid;
   grid-template-columns: 190px 1fr;
   gap: 22px;
+
   position: relative;
   box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.04);
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.25), box-shadow 0.4s ease;
@@ -1097,6 +1101,35 @@ button {
     margin-bottom: 20px;
   }
 }
+
+@media (max-width: 580px) {
+  .id-card-landscape {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .card-left-portrait {
+    height: 220px;
+  }
+
+  .card-name {
+    font-size: 26px;
+  }
+
+  .about-title {
+    font-size: 44px;
+  }
+
+  .about-lead-text {
+    font-size: 18px;
+  }
+
+  .about-body-text {
+    font-size: 15px;
+  }
+}
+
 
 .stats-grid {
   display: grid;
