@@ -594,3 +594,5 @@ app.listen(PORT, () => {
   console.log(`Database: ${dbPath}`);
   console.log(`==================================================`);
 });
+
+app.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'index.html')); });
