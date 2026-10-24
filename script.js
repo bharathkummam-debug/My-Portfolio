@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Project Filter Functionality & Slider Navigation Controls
+  // 6. Project Filter Functionality, Slider Navigation & Case Study Modal
   const filterBtns = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('.project-card');
   const prevBtn = document.getElementById('projectsPrevBtn');
@@ -383,6 +383,14 @@ document.addEventListener('DOMContentLoaded', () => {
           dot.classList.remove('active');
         }
       });
+
+      if (projectCards[index]) {
+        projectCards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        projectCards[index].style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+          projectCards[index].style.transform = '';
+        }, 600);
+      }
     };
 
     if (prevBtn) {
@@ -406,6 +414,211 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // --- Project Case Study Modal Data & Interactive Handlers ---
+  const projectDetailsData = {
+    vr: {
+      title: "Virtual Reality Spatial Experience",
+      subtitle: "Next-Gen Spatial Computing & WebXR Product Landing Page",
+      category: "UI/UX Design • WebXR",
+      image: "assets/project_vr_experience.jpg",
+      fullImage: "assets/Plugin.png",
+      overview: "An award-standard landing page concept engineered for an ultra-premium spatial computing headset. The interface combines hyper-minimalist cyber typography, sleek 3D asset integration, and intuitive spatial computing UI cues to deliver an immersive hardware showcase.",
+      highlights: [
+        { title: "3D Product Staging", desc: "Interactive WebXR presentation with high-resolution humanoid render and 360-degree spatial hardware inspection." },
+        { title: "Ergonomic UI Flow", desc: "Clear separation between system navigation, sensory specs, and direct-to-consumer purchase paths." },
+        { title: "Futuristic OLED Aesthetic", desc: "Deep blacks paired with precision luminescent accents to simulate true spatial immersion." }
+      ],
+      meta: {
+        client: "Spatial Hardware Concept",
+        role: "Lead UI/UX Designer & 3D Web Stylist",
+        deliverables: "High-Fidelity UI, WebXR Spec, Design System",
+        tools: "Figma, Blender 3D, Webflow, WebGL"
+      }
+    },
+    furniture: {
+      title: "Luxury Furniture Living Architecture",
+      subtitle: "Architectural Interior Commerce & Spatial Room Experience",
+      category: "Web Design • E-Commerce UI",
+      image: "assets/project_luxury_furniture.jpg",
+      fullImage: "assets/file cover - 6.png",
+      overview: "An editorial, high-end interior platform crafted for bespoke luxury furniture studios. The interface empowers discerning homeowners and interior architects to explore furniture pieces directly within spatial lifestyle settings, backed by interactive material hotspot annotations and proof-of-craftsmanship metric storytelling.",
+      highlights: [
+        { title: "Interactive Spec Hotspots", desc: "Precision interactive callouts highlighting cotton fabric breathability, balanced lumbar support, and solid structural integrity." },
+        { title: "Spatial Living Room Architecture", desc: "Harmonious composition connecting living room and dining room spaces in a seamless, fluid layout." },
+        { title: "Trust & Conversion Metrics", desc: "Prominent bottom metric bar showcasing 18K+ loyal clients, 700+ manufactured designs, and a 95% repeat purchase rate." }
+      ],
+      meta: {
+        client: "Bespoke Interior Studio",
+        role: "Product Designer & Creative Director",
+        deliverables: "Design System, Interactive Hotspots, E-Commerce UI",
+        tools: "Figma, Design Tokens, Spatial UX, Typography"
+      }
+    },
+    apex: {
+      title: "Apex Vault Financial Analytics",
+      subtitle: "Real-time Multi-Asset Portfolio & Crypto Intelligence Dashboard",
+      category: "SaaS Dashboard • FinTech",
+      image: "assets/project_apex_vault.jpg",
+      fullImage: "assets/project_apex_vault.jpg",
+      overview: "A comprehensive FinTech dashboard platform designed to simplify complex algorithmic trading, multi-currency crypto tracking, and wealth management into actionable, high-clarity visualizations.",
+      highlights: [
+        { title: "High-Density Visual Analytics", desc: "Real-time responsive performance charts, asset allocation donut graphs, and live market volatility trackers." },
+        { title: "Institutional-Grade UX", desc: "Rapid keyboard shortcut navigation, instant asset swaps, and multi-tier security authorization." }
+      ],
+      meta: {
+        client: "Apex FinTech Labs",
+        role: "UI/UX & Data Visualization Designer",
+        deliverables: "Dashboard Architecture, Design System, Charting Specs",
+        tools: "Figma, D3.js, Chart.js, React UI"
+      }
+    },
+    luxe: {
+      title: "Luxe Store Mobile App",
+      subtitle: "Luxury Fashion & Curated Accessories Mobile Application",
+      category: "Mobile App UI • iOS & Android",
+      image: "assets/project_luxe_store.jpg",
+      fullImage: "assets/project_luxe_store.jpg",
+      overview: "A sleek mobile commerce application built for luxury retail. Designed with one-hand ergonomics, tactile gesture-based shopping, and personalized AI styling recommendations.",
+      highlights: [
+        { title: "Fluid Gesture Navigation", desc: "Seamless swipe-to-preview, tactile haptic cues, and instant bag drawer interactions." },
+        { title: "One-Tap Frictionless Checkout", desc: "Integrated Apple Pay and biometrics for zero-friction luxury purchasing." }
+      ],
+      meta: {
+        client: "Luxe Boutique Group",
+        role: "Lead Mobile UX Designer",
+        deliverables: "iOS & Android App UI, Interactive Prototypes",
+        tools: "Figma, Principle, Mobile Design System"
+      }
+    }
+  };
+
+  const projectModal = document.getElementById('projectModal');
+  const projectModalContent = document.getElementById('projectModalContent');
+  const projectModalClose = document.getElementById('projectModalClose');
+  const projectModalBackdrop = document.getElementById('projectModalBackdrop');
+
+  function openProjectModal(projectId) {
+    const data = projectDetailsData[projectId];
+    if (!data || !projectModal || !projectModalContent) return;
+
+    projectModalContent.innerHTML = `
+      <div class="project-modal-image-wrap">
+        <img src="${data.image}" alt="${data.title}">
+      </div>
+      <div class="project-modal-content-inner">
+        <div class="project-modal-header-meta">
+          <span class="project-modal-badge">${data.category}</span>
+          <a href="${data.fullImage}" target="_blank" rel="noopener noreferrer" class="project-modal-view-full">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View Full High-Res Design
+          </a>
+        </div>
+        <h3 class="project-modal-title">${data.title}</h3>
+        <p class="project-modal-subtitle">${data.subtitle}</p>
+
+        <div class="project-modal-grid">
+          <div class="project-modal-main">
+            <h4>Case Study Overview</h4>
+            <p class="project-modal-overview-text">${data.overview}</p>
+
+            <h4>Key Highlights &amp; Innovations</h4>
+            <div class="project-modal-highlights">
+              ${data.highlights.map(item => `
+                <div class="project-modal-highlight-item">
+                  <span class="project-modal-highlight-dot"></span>
+                  <p><strong>${item.title}:</strong> ${item.desc}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="project-modal-side">
+            <h4>Project Specs</h4>
+            <div class="project-modal-meta-list">
+              <div class="project-modal-meta-row">
+                <span class="project-modal-meta-label">Client / Domain</span>
+                <span class="project-modal-meta-val">${data.meta.client}</span>
+              </div>
+              <div class="project-modal-meta-row">
+                <span class="project-modal-meta-label">My Role</span>
+                <span class="project-modal-meta-val">${data.meta.role}</span>
+              </div>
+              <div class="project-modal-meta-row">
+                <span class="project-modal-meta-label">Key Deliverables</span>
+                <span class="project-modal-meta-val">${data.meta.deliverables}</span>
+              </div>
+              <div class="project-modal-meta-row">
+                <span class="project-modal-meta-label">Tools &amp; Stack</span>
+                <span class="project-modal-meta-val">${data.meta.tools}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-modal-action-bar">
+          <a href="#contact" class="project-modal-cta-btn" id="modalContactBtn">
+            <span>Discuss This Project</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <button type="button" class="project-modal-view-full" id="modalCloseActionBtn" style="background:none;border:none;cursor:pointer;">
+            Close Preview
+          </button>
+        </div>
+      </div>
+    `;
+
+    projectModal.classList.add('active');
+    projectModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    const modalContactBtn = document.getElementById('modalContactBtn');
+    if (modalContactBtn) {
+      modalContactBtn.addEventListener('click', () => {
+        closeProjectModal();
+      });
+    }
+    const modalCloseActionBtn = document.getElementById('modalCloseActionBtn');
+    if (modalCloseActionBtn) {
+      modalCloseActionBtn.addEventListener('click', () => {
+        closeProjectModal();
+      });
+    }
+  }
+
+  function closeProjectModal() {
+    if (!projectModal) return;
+    projectModal.classList.remove('active');
+    projectModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (projectModalClose) {
+    projectModalClose.addEventListener('click', closeProjectModal);
+  }
+  if (projectModalBackdrop) {
+    projectModalBackdrop.addEventListener('click', closeProjectModal);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && projectModal && projectModal.classList.contains('active')) {
+      closeProjectModal();
+    }
+  });
+
+  document.querySelectorAll('[data-open-modal]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const proj = btn.getAttribute('data-open-modal');
+      openProjectModal(proj);
+    });
+  });
+
+  document.querySelectorAll('[data-project-trigger]').forEach(visual => {
+    visual.addEventListener('click', () => {
+      const proj = visual.getAttribute('data-project-trigger');
+      openProjectModal(proj);
+    });
+  });
 
   // 7. Interactive 3D Tilt & Drag-and-Hold for Modern Designer ID Card
   const idBadgeCard = document.querySelector('.id-card-landscape') || document.querySelector('.id-badge-card');
